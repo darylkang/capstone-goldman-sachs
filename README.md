@@ -2,6 +2,7 @@
 
 ### ***Analyzing H1-B Demand Across Firms***
 - [Project Proposal](docs/proposal.pdf)
+- [Google Docs](https://docs.google.com/document/d/1vi0p2yDv-QhWzHUths2dgmEgMqqeF6XdPsNL82NH4Yc/edit)
 
 <br>
 
