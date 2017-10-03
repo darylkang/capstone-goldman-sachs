@@ -1,6 +1,7 @@
 # *Data Science Capstone & Ethics — Fall 2017*
 
 ### ***Analyzing H1-B Demand Across Firms***
+- [Project Proposal](docs/proposal.pdf)
 
 <br>
 
