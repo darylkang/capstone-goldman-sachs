@@ -7,7 +7,7 @@
 <br>
 
 **Team Members:**
-- [Pawel Buczak](pbuczak) — prb2123
+- [Pawel Buczak](https://github.com/pbuczak) — prb2123
 - [Tejas Dharamsi](https://github.com/Dharamsitejas) — td2520
 - [Daryl Kang](https://github.com/darylkang) — dk2896
 - [Hung Shi Lin]() — hl2997
