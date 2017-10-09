@@ -101,6 +101,6 @@ ENV/
 .mypy_cache/
 
 # data
-.csv
-.xlsx
-.zip
+*.csv
+*.xlsx
+*.zip
