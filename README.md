@@ -1,5 +1,7 @@
 # *Data Science Capstone & Ethics — Fall 2017*
 
+### NOTE: Please run the code with Python3
+
 ### ***Analyzing H1-B Demand Across Firms***
 - [Project Proposal](docs/proposal.pdf)
 - [Google Docs](https://docs.google.com/document/d/1vi0p2yDv-QhWzHUths2dgmEgMqqeF6XdPsNL82NH4Yc/edit)
