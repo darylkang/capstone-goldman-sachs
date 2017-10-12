@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 #Create empty table with main columns
-
+print("Starting: Creating empty table.")
 h1b_data_columns=['CASE_SUBMITTED',
 'CASE_NUMBER',
 'CASE_STATUS',
@@ -69,59 +69,72 @@ h1b_data_columns=['CASE_SUBMITTED',
 H1B_main = pd.DataFrame(columns=h1b_data_columns)
 
 #Load and append data from 2016
-
+print("Loading 2016")
 H1B_2016 = pd.read_excel('data/H-1B_Disclosure_Data_FY16.xlsx')
 H1B_main = H1B_main.append(H1B_2016)
 
 #Load, update column headers and append data from 2015
+print("Loading 2015")
 H1B_2015 = pd.read_excel('data/H-1B_Disclosure_Data_FY15_Q4.xlsx')
 H1B_2015_columns=['CASE_NUMBER', 'CASE_STATUS', 'CASE_SUBMITTED', 'DECISION_DATE','VISA_CLASS', 'EMPLOYMENT_START_DATE', 'EMPLOYMENT_END_DATE','EMPLOYER_NAME', 'EMPLOYER_ADDRESS1', 'EMPLOYER_ADDRESS2','EMPLOYER_CITY', 'EMPLOYER_STATE', 'EMPLOYER_POSTAL_CODE','EMPLOYER_COUNTRY', 'EMPLOYER_PROVINCE', 'EMPLOYER_PHONE','EMPLOYER_PHONE_EXT', 'AGENT_ATTORNEY_NAME', 'AGENT_ATTORNEY_CITY','AGENT_ATTORNEY_STATE', 'JOB_TITLE', 'SOC_CODE', 'SOC_NAME','NAIC_CODE', 'TOTAL_WORKERS', 'FULL_TIME_POSITION', 'PREVAILING_WAGE','PW_UNIT_OF_PAY', 'PW_WAGE_LEVEL', 'PW_WAGE_SOURCE','PW_SOURCE_YEAR', 'PW_SOURCE_OTHER', 'WAGE_RATE_OF_PAY','WAGE_UNIT_OF_PAY', 'H-1B_DEPENDENT', 'WILLFUL_VIOLATOR','WORKSITE_CITY', 'WORKSITE_COUNTY', 'WORKSITE_STATE','WORKSITE_POSTAL_CODE']
 H1B_2015.columns=H1B_2015_columns
 H1B_main = H1B_main.append(H1B_2015, ignore_index=True)
 
 #Load, update column headers and append data from 2014
+print("Loading 2014")
 H1B_2014 = pd.read_excel('data/H-1B_FY14_Q4.xlsx')
 H1B_2014_columns=['CASE_NUMBER', 'CASE_STATUS','CASE_SUBMITTED','DECISION_DATE', 'VISA_CLASS', 'EMPLOYMENT_START_DATE', 'EMPLOYMENT_END_DATE', 'EMPLOYER_NAME','EMPLOYER_ADDRESS','EMPLOYER_CITY','EMPLOYER_STATE','EMPLOYER_POSTAL_CODE','SOC_CODE','SOC_NAME','JOB_TITLE','WAGE_RATE_OF_PAY_FROM','WAGE_RATE_OF_PAY_TO','WAGE_UNIT_OF_PAY','FULL_TIME_POSITION','TOTAL_WORKERS','WORKSITE_CITY','WORKSITE_STATE','PREVAILING_WAGE','PW_UNIT_OF_PAY','PW_WAGE_SOURCE','PW_SOURCE_OTHER','PW_SOURCE_YEAR','WORKSITE_CITY_2','WORKSITE_STATE_2','PREVAILING_WAGE_2','PW_UNIT_OF_PAY_2','PW_WAGE_SOURCE_2','PW_WAGE_SOURCE_OTHER_2','PW_SOURCE_YEAR_2','NAIC_CODE']
 H1B_2014.columns = H1B_2014_columns
 H1B_main = H1B_main.append(H1B_2014, ignore_index=True)
 
 #Load, update column headers and append data from 2013
+print("Loading 2013")
 H1B_2013 = pd.read_excel('data/LCA_FY2013.xlsx')
 H1B_2013.columns= H1B_2014_columns
 H1B_main = H1B_main.append(H1B_2013, ignore_index=True)
 
 #Load, update column headers and append data from 2012
+print("Loading 2012")
 H1B_2012 = pd.read_excel('data/LCA_FY2012_Q4.xlsx')
 H1B_2012.columns= H1B_2014_columns
 H1B_main = H1B_main.append(H1B_2012, ignore_index=True)
 
 #Load, update column headers and append data from 2011
+print("Loading 2011")
 H1B_2011 = pd.read_excel('data/H-1B_iCert_LCA_FY2011_Q4.xlsx')
 H1B_2011.columns= H1B_2014_columns
 H1B_main = H1B_main.append(H1B_2011, ignore_index=True)
 
 #Load, update column headers and append data from 2010
+print("Loading 2010")
 H1B_2010 = pd.read_excel('data/H-1B_FY2010.xlsx')
 H1B_2010_columns=['CASE_NUMBER', 'CASE_STATUS','CASE_SUBMITTED','DECISION_DATE', 'EMPLOYMENT_START_DATE', 'EMPLOYMENT_END_DATE', 'EMPLOYER_NAME','EMPLOYER_ADDRESS1','EMPLOYER_ADDRESS2', 'EMPLOYER_CITY','EMPLOYER_STATE','EMPLOYER_POSTAL_CODE','SOC_CODE','SOC_NAME','JOB_TITLE','WAGE_RATE_OF_PAY_FROM','WAGE_RATE_OF_PAY_TO','TOTAL_WORKERS','WORKSITE_CITY','WORKSITE_STATE','PREVAILING_WAGE','PW_UNIT_OF_PAY','PW_WAGE_SOURCE','PW_SOURCE_OTHER','PW_SOURCE_YEAR','WORKSITE_CITY_2','WORKSITE_STATE_2','PREVAILING_WAGE_2','PW_UNIT_OF_PAY_2','PW_WAGE_SOURCE_2','PW_WAGE_SOURCE_OTHER_2','PW_SOURCE_YEAR_2','NAIC_CODE']
 H1B_2010.columns= H1B_2010_columns
 H1B_main = H1B_main.append(H1B_2010, ignore_index=True)
 
 #Load, update column headers and append data from 2009 (new iCert)
+print("Loading 2009 (new system)")
 H1B_2009_iCert = pd.read_excel('data/Icert_%20LCA_%20FY2009.xlsx')
 H1B_2009_iCert.columns= H1B_2014_columns
 H1B_main = H1B_main.append(H1B_2009_iCert, ignore_index=True)
 
 #Load, update column headers and append data from 2009 (old system)
+print("Loading 2009 (old system)")
 H1B_2009_old_columns=['CASE_SUBMITTED','CASE_NUMBER','VISA_CLASS','EMPLOYER_NAME','EMPLOYER_ADDRESS1','EMPLOYER_ADDRESS2','EMPLOYER_CITY','EMPLOYER_STATE','EMPLOYER_PROVINCE','EMPLOYER_POSTAL_CODE','TOTAL_WORKERS','EMPLOYMENT_START_DATE','EMPLOYMENT_END_DATE','JOB_TITLE','DECISION_DATE','SOC_CODE','SOC_NAME','CASE_STATUS','WAGE_RATE_OF_PAY_FROM','WAGE_UNIT_OF_PAY','WAGE_RATE_OF_PAY_TO','PART_TIME','WORKSITE_CITY','WORKSITE_STATE','PREVAILING_WAGE','PW_WAGE_SOURCE','PW_SOURCE_YEAR','PW_SOURCE_OTHER','WAGE_RATE_OF_PAY_2','WAGE_UNIT_OF_PAY_2','MAX_RATE_2','PART_TIME_2','WORKSITE_CITY_2','WORKSITE_STATE_2','PREVAILING_WAGE_2','PW_WAGE_SOURCE_2','PW_SOURCE_YEAR_2','PW_WAGE_SOURCE_OTHER_2','WITHDRAWN']
 H1B_2009_old = pd.read_excel('data/H-1B_Case_Data_FY2009.xlsx')
+H1B_2009_old.columns=H1B_2009_old_columns
 H1B_main = H1B_main.append(H1B_2009_old, ignore_index=True)
 
 
 #Load, update column headers and append data from 2008
+print("Loading 2008")
 H1B_2008_columns=['CASE_SUBMITTED','CASE_NUMBER','VISA_CLASS','EMPLOYER_NAME','EMPLOYER_ADDRESS1','EMPLOYER_ADDRESS2','EMPLOYER_CITY','EMPLOYER_STATE','EMPLOYER_POSTAL_CODE','TOTAL_WORKERS','EMPLOYMENT_START_DATE','EMPLOYMENT_END_DATE','JOB_TITLE','DECISION_DATE','CERTIFICATION_START_DATE','CERTIFICATION_END_DATE','SOC_CODE','CASE_STATUS','WAGE_RATE_OF_PAY_FROM','WAGE_UNIT_OF_PAY','WAGE_RATE_OF_PAY_TO','PART_TIME','WORKSITE_CITY','WORKSITE_STATE','PREVAILING_WAGE','PW_WAGE_SOURCE','PW_SOURCE_YEAR','PW_SOURCE_OTHER','WAGE_RATE_OF_PAY_2','WAGE_UNIT_OF_PAY_2','MAX_RATE_2','PART_TIME_2','WORKSITE_CITY_2','WORKSITE_STATE_2','PREVAILING_WAGE_2','PW_WAGE_SOURCE_2','PW_SOURCE_YEAR_2','PW_WAGE_SOURCE_OTHER_2','WITHDRAWN','SOC_NAME']
 H1B_2008 = pd.read_excel('data/H-1B_Case_Data_FY2008.xlsx')
 H1B_2008.columns=H1B_2008_columns
 H1B_main = H1B_main.append(H1B_2008, ignore_index=True)
 
 #Create CSV of joined data
-H1B_main.to_csv('H1B_post2008_data.csv')
+print("Data loaded. DF shape is ",H1B_main.shape)
+print("Creating CSV")
+H1B_main.to_csv('H1B_post2008_data.csv', encoding='utf-8')
+print("Complete.")
