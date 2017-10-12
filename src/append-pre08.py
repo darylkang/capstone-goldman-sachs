@@ -56,6 +56,12 @@ for i in range(2,8):
                 data = pd.read_csv(file, dtype=str, encoding='Latin-1')
             data.columns=columns
             post08 = post08.append(data, ignore_index=True)
+            if i == 4:
+                with zip_file.open('H1B_efile_FY0{}.txt'.format(i + 1)) as file:
+                    data = pd.read_csv(file, dtype=str, encoding='Latin-1')
+                    columns = ['CASE_SUBMITTED','CASE_NUMBER','EMPLOYER_NAME','EMPLOYER_ADDRESS1','EMPLOYER_ADDRESS2','EMPLOYER_CITY','EMPLOYER_STATE','EMPLOYER_POSTAL_CODE','TOTAL_WORKERS','EMPLOYMENT_START_DATE','EMPLOYMENT_END_DATE','JOB_TITLE','DECISION_DATE','CERTIFICATION_START_DATE','CERTIFICATION_END_DATE','SOC_CODE','CASE_STATUS','WAGE_RATE_OF_PAY_FROM','WAGE_UNIT_OF_PAY','WAGE_RATE_OF_PAY_TO','PART_TIME','WORKSITE_CITY','WORKSITE_STATE','PREVAILING_WAGE','PW_WAGE_SOURCE','PW_SOURCE_YEAR','PW_SOURCE_OTHER','WAGE_RATE_OF_PAY_2','WAGE_UNIT_OF_PAY_2','MAX_RATE_2','PART_TIME_2','WORKSITE_CITY_2','WORKSITE_STATE_2','PREVAILING_WAGE_2','PW_WAGE_SOURCE_2','PW_SOURCE_YEAR_2','PW_WAGE_SOURCE_OTHER_2']
+                    data.columns=columns
+                    post08 = post08.append(data, ignore_index=True)
             print("\t Loading complete, shape is now ",post08.shape)
 print("Writing final csv file...")
 post08.to_csv('H1B_Full_Data.csv',encoding='utf-8')
