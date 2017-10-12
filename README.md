@@ -14,3 +14,10 @@
 - [Daryl Kang](https://github.com/darylkang) — dk2896
 - [Hung Shi Lin](https://github.com/LinHungShi) — hl2997
 - [Marika Lohmus](https://github.com/mikanette) — ml3921
+
+**Getting the Data**
+
+- Run Download-01.py -> Gets raw_data folder (Pre-2008 data)
+- Run Download-01.py -> Gets data folder (Post-2008 data)
+- Run append-post08.py -> Gets H1B_post2008_data.csv
+- Run append-pre08.py -> Gets H1B_Full_Data.csv
