@@ -17,6 +17,8 @@
 
 ### *Announcements*
 
+- **Oct 30:** Literature Review and Exploratory Data Analysis Report Due
+
 - **Oct 12:** To get the data, run the following commands:
   1. `download-01.py` → returns `raw_data` folder (pre-2008 data)
   2. `download-02.py` → returns `data` folder (post-2008 data)
