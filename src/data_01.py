@@ -133,4 +133,4 @@ data.to_csv('data_01.csv', index=False)
 
 print("K, it's done...")
 toc = time.time()
-print("You've waited:", (toc - tic) / 60, 'minutes')
+print("You've waited:", round((toc - tic) / 60, 2), 'minutes')
