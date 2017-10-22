@@ -76,7 +76,7 @@ def check_apply_date_pattern(x):
 
 #Set up standardization for zipcodes
 right_zip = '^[0-9]{5}$'
-long_zip = '^[0-9]{5}-.*$'
+long_zip = '^[0-9]{5}-'
 fourDigit_zip = '^[0-9]{4}$'
 
 #Function for fixing zipcodes into right format
@@ -93,6 +93,34 @@ def fix_zip(x):
     else:
         print("Error,",x)
         return x
+
+def fix_socCode(x):
+    soc = str(x).strip()
+    soc = re.sub('[\.]+[0-9]{2}$', '', soc)
+    
+    if(re.match('^[0-9]{2}-[0-9]{4}$', soc)):
+        return soc
+    elif(re.match('^[0-9]{2}\.[0-9]{4}$', soc)):
+        return re.sub('\.', '-', soc)
+    elif(re.match('^[0-9]{6}$', soc)):
+        return soc[:2] + '-' + soc[2:]
+    else:
+        print('Error: ', x, '|', soc)
+        return soc
+
+def fix_unitOfPay(x):
+    if(x in ['Bi-Weekly']):
+        return 'B'
+    elif(x in ['Hour']):
+        return 'H'
+    elif(x in ['Month']):
+        return 'M'
+    elif(x in ['Week']):
+        return 'W'
+    elif(x in ['Year']):
+        return 'Y'
+    else:
+        return None
 
 #Fix states based on zipcode
 def fix_states(x):
