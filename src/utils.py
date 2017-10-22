@@ -2,6 +2,9 @@
 
 import cleanco
 import zipcode
+import pandas as pd
+import numpy as np
+import re
 
 #CLEANCO employer name and change to uppercase
 def employer_name_uppercase_cleanco(x):
@@ -73,16 +76,20 @@ def check_apply_date_pattern(x):
 
 #Set up standardization for zipcodes
 right_zip = '^[0-9]{5}$'
-long_zip = '^[0-9]{5}-[0-9]{4}$'
+long_zip = '^[0-9]{5}-.*$'
+fourDigit_zip = '^[0-9]{4}$'
 
 #Function for fixing zipcodes into right format
 def fix_zip(x):
+    x = str(x).strip()
     if pd.isnull(x):
         return x
     if re.match(right_zip,x):
         return x
     elif re.match(long_zip,x):
         return x[:5]
+    elif re.match(fourDigit_zip,x):
+        return '0' + x
     else:
         print("Error,",x)
         return x
