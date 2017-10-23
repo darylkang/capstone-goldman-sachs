@@ -286,9 +286,9 @@ def calc_wage_rate_of_pay(x):
 
 def write_to_csv(data, filename):
 	print("Writing data to file",filename)
-	if not os.path.exists('cleaned_data'):
-		os.mkdir('cleaned_data')
-	data.to_csv("cleaned_data/{}".format(filename), encoding='utf-8', index=False)
+	if not os.path.exists('clean'):
+		os.mkdir('clean')
+	data.to_csv("clean/{}".format(filename), encoding='utf-8', index=False)
 
 def clean_all_data(data):
 	cols = data.columns
