@@ -91,8 +91,8 @@ def fix_zip(x):
     elif re.match(fourDigit_zip,x):
         return '0' + x
     else:
-        print("Error,",x)
-        return x
+        print("zip code error: ",x)
+        return None
 
 def fix_socCode(x):
     soc = str(x).strip()
@@ -105,19 +105,19 @@ def fix_socCode(x):
     elif(re.match('^[0-9]{6}$', soc)):
         return soc[:2] + '-' + soc[2:]
     else:
-        print('Error: ', x, '|', soc)
+        print('SOC code error: ', x, '|', soc)
         return soc
 
 def fix_unitOfPay(x):
-    if(x in ['Bi-Weekly']):
+    if(x in ['Bi-Weekly', 'BI']):
         return 'B'
-    elif(x in ['Hour']):
+    elif(x in ['Hour', 'HR']):
         return 'H'
-    elif(x in ['Month']):
+    elif(x in ['Month', 'MTH']):
         return 'M'
-    elif(x in ['Week']):
+    elif(x in ['Week', 'WK']):
         return 'W'
-    elif(x in ['Year']):
+    elif(x in ['Year', 'YR']):
         return 'Y'
     else:
         return None
