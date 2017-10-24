@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import os
 import time
 
 from datetime import datetime
@@ -43,7 +44,7 @@ with open('data_01.csv', 'w+') as f:
         'WORKSITE_POSTAL_CODE',
         'WAGE_RATE_OF_PAY_CALCULATED',
         'PREVAILING_WAGE_CALCULATED',
-        'WITHDRAWN'
+        'WITHDRAWN' # Delete
     ])
     f.write(HEADER + '\n')
     for i in range(1, 6):
@@ -127,9 +128,20 @@ data['DECISION_DATE'] = data['DECISION_DATE'].str.replace(' 0:00:00', '')
 data['DECISION_DATE'] = pd.to_datetime(data['DECISION_DATE'], errors='coerce').dt.strftime('%Y-%m-%d')
 data['DECISION_DATE'][data['DECISION_DATE'] == 'NaT'] = np.nan
 
+data.drop('WITHDRAWN', axis=1, inplace=True)
+data['DOT_NAME'] = np.nan
+
 data = data.reindex_axis(sorted(data.columns), axis=1)
 
-data.to_csv('data_01.csv', index=False)
+if not os.path.exists('clean'):
+    os.mkdir('clean')
+# data.to_csv('data_01.csv', index=False)
+data.iloc[0:244783].to_csv('clean/2001_fax.csv', index=False)
+data.iloc[244783:371548].to_csv('clean/2002_fax.csv', index=False)
+data.iloc[371548:411369].to_csv('clean/2003_fax.csv', index=False)
+data.iloc[411369:437289].to_csv('clean/2004_fax.csv', index=False)
+data.iloc[437289:444861].to_csv('clean/2005_fax.csv', index=False)
+os.remove('data_01.csv')
 
 print("K, it's done...")
 toc = time.time()
