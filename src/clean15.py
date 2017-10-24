@@ -33,8 +33,6 @@ data["EMPLOYER_STATE"]=data.EMPLOYER_STATE.apply(utils.uppercase_nopunct)
 data["WORKSITE_CITY"]=data.WORKSITE_CITY.apply(utils.uppercase_nopunct)
 data["WORKSITE_STATE"]=data.WORKSITE_STATE.apply(utils.uppercase_nopunct)
 
-data.WORKSITE_STATE = data.WORKSITE_STATE.replace('PW', 'PA')
-
 data.EMPLOYER_STATE = data[['CASE_NUMBER','EMPLOYER_STATE', 'EMPLOYER_POSTAL_CODE']].apply(utils.update_fix_states, axis =1)
 data.WORKSITE_STATE = data[['CASE_NUMBER','WORKSITE_STATE', 'WORKSITE_POSTAL_CODE']].apply(utils.worksite_fix_states, axis =1)
 
