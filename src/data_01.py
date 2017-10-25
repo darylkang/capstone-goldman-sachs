@@ -66,7 +66,6 @@ with open('data_01.csv', 'w+') as f:
                 pd.DataFrame(columns=list(range(8)))
             ], axis=1)
 #             data = data.loc[data['CertCode'] == 'Certified']
-            print(data.shape)
             data.to_csv(f, header=False, index=False)
 
 data = pd.read_csv('data_01.csv', dtype=str)
