@@ -11,7 +11,7 @@ warnings.filterwarnings('ignore')
 
 tic = time.time()
 print("write data to csv....")
-with open('data_02.csv', 'w+') as f:
+with open('data_02.csv', 'w+', encoding = 'utf-8') as f:
     HEADER = ','.join([
         'CASE_SUBMITTED', # Submitted_Data
         'CASE_NUMBER', # Case_No
