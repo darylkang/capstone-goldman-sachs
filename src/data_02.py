@@ -46,44 +46,50 @@ with open('data_02.csv', 'w+') as f:
     ])
 
     f.write(HEADER + '\n')
-    
     # Write txt files to csv
     file_root = 'raw_data'
     files = glob.glob(file_root + '/*.zip')
     efiles = [file for file in files if 'efile' in file]
     efiles = efiles[:-2]
+    num_data = [0]
     for efile in efiles:
         with ZipFile(efile) as ZIP:
-            #print("read {}...".format(efile))
             file_names = ZIP.namelist()
-            #print('list all files: {}'.format(file_names))
+            data_len = 0
             for file_name in file_names:
                 if file_name.endswith('.txt') and file_name.startswith('H1B'):
                     with ZIP.open(file_name) as file:
                         if file_name.endswith('Efile.txt'):
-                            data = pd.read_csv(file, dtype=str, encoding = "ISO-8859-1", header = None)    
+                            data = pd.read_csv(
+                                file,
+                                dtype=str,
+                                encoding="ISO-8859-1",
+                                header=None)
                         else:
-                            data = pd.read_csv(file, dtype=str, encoding = "ISO-8859-1")
-                    #print("{} is a file in the zip".format(file_name))
-                    #print("columns: {}".format(data.columns))
-                    data['PROGRAM'] = np.nan
-                    data['WITHDRAWN'] = np.nan
-                    data = pd.concat([
-                        data.iloc[:, 0:4],
-                        data.iloc[:, 5:9],
-                        data.iloc[:, 11:13],
-                        data.iloc[:, 15:17],
-                        data.iloc[:, 18:24],
-                        data['PROGRAM'],
-                        data['WITHDRAWN'],
-                        pd.DataFrame(columns=list(range(8)))
-                    ], axis=1)
-            data = data.loc[data['APPROVAL_STATUS'] == 'Certified']
-            data.to_csv(f, header=False, index=False)
-print("done")
-print("clean data....")
-data = pd.read_csv('data_02.csv', dtype=str)
+                            data = pd.read_csv(
+                                file,
+                                dtype=str,
+                                encoding="ISO-8859-1")
+                        data['PROGRAM'] = np.nan
+                        data['WITHDRAWN'] = np.nan
+                        data = pd.concat([
+                            data.iloc[:, 0:4],
+                            data.iloc[:, 5:9],
+                            data.iloc[:, 11:13],
+                            data.iloc[:, 15:17],
+                            data.iloc[:, 18:24],
+                            data['PROGRAM'],
+                            data['WITHDRAWN'],
+                            pd.DataFrame(columns=list(range(8)))
+                        ], axis=1)
+                        data.to_csv(f, header=False, index=False)
+                        data_len += len(data)
+        print('total data for {}: {}'.format(efile, data_len))
+        num_data.append(data_len)
 
+data = pd.read_csv('data_02.csv', dtype=str)
+print("done, total_data = {}".format(len(data)))
+print('clean data...')
 x = [
     'CASE_STATUS',
     'JOB_TITLE',
@@ -106,15 +112,23 @@ data['EMPLOYER_POSTAL_CODE'] = [
     i if len(str(i)) == 5 else np.nan for i in data['EMPLOYER_POSTAL_CODE'].str.replace('\s', '')
 ]
 
+print("change wage rate of pay to numeric...")
 data['WAGE_RATE_OF_PAY'] = pd.to_numeric(data['WAGE_RATE_OF_PAY'], errors='coerce')
 
-print('Keep waiting...')
+print("change prevailing wage to numeric...")
+data['PREVAILING_WAGE'] = pd.to_numeric(data['PREVAILING_WAGE'], errors='coerce')
 
+print('change worksite state to string...')
+data[u'WORKSITE_STATE'] = pd.to_numeric(data['WORKSITE_STATE'], errors='coerce')
+
+
+print('clean dot code...')
 data['DOT_CODE'] = [
-    int(i) if (not np.isnan(i)) and int(i) >= 100 and int(i) < 1000 else np.nan for i in data['DOT_CODE']
+    i if (not np.isnan(int(i))) and int(i) <= 198 else np.nan for i in data['DOT_CODE']
 ]
 
 ## Original daataset is for part time, so switch values
+print('clean full time position...')
 data.FULL_TIME_POSITION.replace(to_replace = dict(N = 'YY', Y = 'NN'), inplace = True)
 data.FULL_TIME_POSITION.replace(to_replace = dict(YY = 'Y', NN = 'N'), inplace = True)
 
@@ -125,16 +139,25 @@ data['PW_UNIT_OF_PAY'] = [
 ]
 '''
 
+print('clean case submitted...')
 data['CASE_SUBMITTED'] = pd.to_datetime(data['CASE_SUBMITTED'], errors='coerce').dt.strftime('%Y-%m-%d')
 data['CASE_SUBMITTED'][data['CASE_SUBMITTED'] == 'NaT'] = np.nan
 
+print('clean decision date...')
 data['DECISION_DATE'] = data['DECISION_DATE'].str.replace(' 0:00:00', '')
 data['DECISION_DATE'] = pd.to_datetime(data['DECISION_DATE'], errors='coerce').dt.strftime('%Y-%m-%d')
 data['DECISION_DATE'][data['DECISION_DATE'] == 'NaT'] = np.nan
 
+print('sort columns...')
 data = data.reindex_axis(sorted(data.columns), axis=1)
 
-data.to_csv('data_02.csv', index=False)
+#print('drop withdrawn column')
+#data.drop('WITHDRAWN', axis=1, inplace=True)
+
+data['DOT_NAME'] = np.nan
+
+for i in range(len(num_data)-1):
+    data.iloc[num_data[i]:num_data[i+1]].to_csv('clean/200{}_efile.csv'.format(i+2), index=False)
 
 print("done")
 toc = time.time()
