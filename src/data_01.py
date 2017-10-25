@@ -65,7 +65,8 @@ with open('data_01.csv', 'w+') as f:
                 data.iloc[:, 35],
                 pd.DataFrame(columns=list(range(8)))
             ], axis=1)
-            data = data.loc[data['CertCode'] == 'Certified']
+#             data = data.loc[data['CertCode'] == 'Certified']
+            print(data.shape)
             data.to_csv(f, header=False, index=False)
 
 data = pd.read_csv('data_01.csv', dtype=str)
@@ -136,11 +137,11 @@ data = data.reindex_axis(sorted(data.columns), axis=1)
 if not os.path.exists('clean'):
     os.mkdir('clean')
 # data.to_csv('data_01.csv', index=False)
-data.iloc[0:244783].to_csv('clean/2001_fax.csv', index=False)
-data.iloc[244783:371548].to_csv('clean/2002_fax.csv', index=False)
-data.iloc[371548:411369].to_csv('clean/2003_fax.csv', index=False)
-data.iloc[411369:437289].to_csv('clean/2004_fax.csv', index=False)
-data.iloc[437289:444861].to_csv('clean/2005_fax.csv', index=False)
+data.iloc[0:288392].to_csv('clean/2001_fax.csv', index=False)
+data.iloc[288392:435139].to_csv('clean/2002_fax.csv', index=False)
+data.iloc[435139:482513].to_csv('clean/2003_fax.csv', index=False)
+data.iloc[482513:514010].to_csv('clean/2004_fax.csv', index=False)
+data.iloc[514010:523945].to_csv('clean/2005_fax.csv', index=False)
 os.remove('data_01.csv')
 
 print("K, it's done...")
