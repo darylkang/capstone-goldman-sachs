@@ -5,6 +5,7 @@ import zipcode
 import pandas as pd
 import numpy as np
 import re
+import string
 
 #CLEANCO employer name and change to uppercase
 def employer_name_uppercase_cleanco(x):
@@ -25,7 +26,7 @@ state_values = ['TX', 'MA', 'MI', 'CA', 'VA', 'NJ', 'NY', 'PA', 'FL', 'MN', 'IL'
        'MD', 'CT', 'WA', 'IA', 'CO', 'AZ', 'GA', 'OK', 'LA', 'WI', 'ND',
        'UT', 'IN', 'OH', 'KY', 'NC', 'NH', 'MO', 'TN', 'ID', 'VT', 'DC',
        'SD', 'AL', 'OR', 'AR', 'NM', 'SC', 'NE', 'DE', 'WY', 'HI', 'KS',
-       'WV', 'ME', 'RI', 'NV', 'MS', 'AK','MT','PR','GU','VI']
+       'WV', 'ME', 'RI', 'NV', 'MS', 'AK','MT','PR','GU','VI', 'MP']
 
 #Get a list of noncompliant employer state and worksite state values
 def check_states(x):
@@ -76,8 +77,9 @@ def check_apply_date_pattern(x):
 
 #Set up standardization for zipcodes
 right_zip = '^[0-9]{5}$'
-long_zip = '^[0-9]{5}-'
+long_zip = '^[0-9]{5}[\s-]'
 fourDigit_zip = '^[0-9]{4}$'
+state_zip ='^[A-Z]{2}\s[0-9]{5}$'
 
 #Function for fixing zipcodes into right format
 def fix_zip(x):
@@ -177,3 +179,106 @@ def calc_wage_rate_of_pay(x):
         return float(x.WAGE_RATE_OF_PAY_FROM)
     else:
         return (float(x.WAGE_RATE_OF_PAY_FROM)+float(x.WAGE_RATE_OF_PAY_TO))/2
+
+def emp_address(x):
+    if pd.isnull(x):
+        return x
+    else:
+        a = str.maketrans('','', string.punctuation)
+        return re.sub('\s+', ' ', str(x).strip().translate(a)).upper()
+
+def update_fix_zip(x):
+    a = str.maketrans('','', string.punctuation)
+    x = re.sub('\s+', ' ', str(x).strip().translate(a))
+    x = x.replace('O', '0').strip()
+    x = x.replace('NBSP', '').strip()
+    x = x.replace('NA', '').strip()
+    if pd.isnull(x):
+        return x
+    if re.match(right_zip,x):
+        return x
+    elif re.match(long_zip,x):
+        return x[:5]
+    elif re.match(state_zip,x):
+        return x[-5:]
+    elif re.match(fourDigit_zip,x):
+        return '0' + x
+    else:
+        try:
+            int(x)
+            if len(x) == 9 or len(x) == 8:
+                return x[:5]
+            else:
+                print("zip code error: ",x)
+                return None
+        except:
+            print("Not a number: ", x)
+            return None
+
+def update_fix_states(x):
+    if pd.isnull(x['EMPLOYER_STATE']):
+        if x.EMPLOYER_POSTAL_CODE:
+            newzip = zipcode.isequal(x.EMPLOYER_POSTAL_CODE)
+            if newzip is not None:
+                print("Old state was",x.EMPLOYER_STATE,"and new state is",newzip.state, "Case Number:", x.CASE_NUMBER)
+                return newzip.state
+            else:
+                return x.EMPLOYER_STATE
+    elif x['EMPLOYER_STATE'] not in state_values and x.EMPLOYER_POSTAL_CODE.isdigit():
+        newzip = zipcode.isequal(x.EMPLOYER_POSTAL_CODE)
+        if newzip is not None:
+            print("Old state was",x.EMPLOYER_STATE,"and new state is",newzip.state, "Case Number:", x.CASE_NUMBER)
+            return newzip.state
+        else:
+            return x.EMPLOYER_STATE
+    else:
+        return x.EMPLOYER_STATE
+
+def worksite_fix_states(x):
+    if pd.isnull(x['WORKSITE_STATE']):
+        if x.WORKSITE_POSTAL_CODE:
+            newzip = zipcode.isequal(x.WORKSITE_POSTAL_CODE)
+            if newzip is not None:
+                print("Old state was",x.WORKSITE_STATE,"and new state is",newzip.state, "Case Number:", x.CASE_NUMBER)
+                return newzip.state
+            else:
+                return x.WORKSITE_STATE
+    elif x['WORKSITE_STATE'] not in state_values and x.WORKSITE_POSTAL_CODE.isdigit():
+        newzip = zipcode.isequal(x.WORKSITE_POSTAL_CODE)
+        if newzip is not None:
+            print("Old state was",x.WORKSITE_STATE,"and new state is",newzip.state, "Case Number:", x.CASE_NUMBER)
+            return newzip.state
+        else:
+            return x.WORKSITE_STATE
+    else:
+        return x.WORKSITE_STATE
+
+def update_fix_socCode(x):
+    soc = str(x).strip()
+    soc = re.sub('\s', '', soc)
+    if(re.match('^[0-9]{2}[\.\-][0-9]{4}[\.\-][0-9]{2}$', soc)):
+        return soc[:2] + '-' + soc[3:7] + '.' + soc[8:]
+    if(re.match('^[0-9]{2}-[0-9]{4}$', soc)):
+        return soc
+    elif(re.match('^[0-9]{2}\.[0-9]{4}$', soc)):
+        return re.sub('\.', '-', soc)
+    elif(re.match('^[0-9]{2}\/[0-9]{4}$', soc)):
+        return re.sub('\/', '-', soc)
+    elif(re.match('^[0-9]{6}$', soc)):
+        return soc[:2] + '-' + soc[2:]
+    elif(re.match('^[0-9]{6}\.[0-9]{2}$', soc)):
+        return soc[:2] + '-' + soc[2:]
+    else:
+        print('SOC code error: ', x, '|', soc)
+        return soc
+
+def calc_wage(x):
+    wf = x.WAGE_RATE_OF_PAY_FROM
+    wt = x.WAGE_RATE_OF_PAY_TO
+    if pd.isnull(wt):
+        return wf
+
+    if wf <=wt:
+        return (wf + wt)/2
+    else:
+        return wf

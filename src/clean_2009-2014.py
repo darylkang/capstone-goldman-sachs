@@ -60,7 +60,7 @@ for clean, inputFn in files:
     'WITHDRAWN']]
 
     print("Creating clean CSV: ",clean)
-    data.to_csv('clean/' + clean + '.csv', encoding='utf-8')
+    data.to_csv('clean/' + clean + '.csv', encoding='utf-8', index = False)
 
 
 #-------------------
@@ -109,7 +109,7 @@ data = data[['CASE_SUBMITTED', 'CASE_NUMBER', 'CASE_STATUS', 'DECISION_DATE', 'V
 'WAGE_RATE_OF_PAY', 'WAGE_UNIT_OF_PAY', 'PREVAILING_WAGE', 'PW_UNIT_OF_PAY', 'WITHDRAWN']]
 
 print("Creating clean CSV: yr2009_old")
-data.to_csv('clean/yr2009_old.csv', encoding='utf-8')
+data.to_csv('clean/yr2009_old.csv', encoding='utf-8', index= False)
 
 
 #-------------------
@@ -160,6 +160,6 @@ data = data[['CASE_SUBMITTED', 'CASE_NUMBER', 'CASE_STATUS', 'DECISION_DATE', 'V
 'WAGE_RATE_OF_PAY', 'WAGE_UNIT_OF_PAY', 'PREVAILING_WAGE', 'PW_UNIT_OF_PAY','WITHDRAWN']]
 
 print("Creating clean CSV: yr2010")
-data.to_csv('clean/yr2010.csv', encoding='utf-8')
+data.to_csv('clean/yr2010.csv', encoding='utf-8', index = False)
 
 
