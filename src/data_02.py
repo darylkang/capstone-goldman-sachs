@@ -82,7 +82,7 @@ with open('data_02.csv', 'w+', encoding = 'utf-8') as f:
                             data['WITHDRAWN'],
                             pd.DataFrame(columns=list(range(8)))
                         ], axis=1)
-                        data.to_csv(f, header=False, index=False)
+                        data.to_csv(f, header=False, index=False, encoding='utf-8')
                         data_len += len(data)
         print('total data for {}: {}'.format(efile, data_len))
         num_data.append(data_len)
@@ -157,7 +157,7 @@ data = data.reindex_axis(sorted(data.columns), axis=1)
 data['DOT_NAME'] = np.nan
 
 for i in range(len(num_data)-1):
-    data.iloc[num_data[i]:num_data[i+1]].to_csv('clean/200{}_efile.csv'.format(i+2), index=False)
+    data.iloc[num_data[i]:num_data[i+1]].to_csv('clean/200{}_efile.csv'.format(i+2), index=False, encoding='utf-8')
 
 print("done")
 toc = time.time()
