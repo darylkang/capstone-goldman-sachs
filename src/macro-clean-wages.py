@@ -63,7 +63,7 @@ for i in bar(range(len(data))):
         data.at[i, 'PREVAILING_WAGE_CALCULATED'] = data.at[i, 'PREVAILING_WAGE']
 
 print('Updating Master CSV...')
-original_data = pd.read_csv('all_clean_data.csv', dtype=str)
+original_data = pd.read_csv('clean/all_clean_data.csv', dtype=str)
 original_data.drop(columns, axis=1, inplace=True)
 original_data['WAGE_RATE_OF_PAY_CALCULATED'] = data['WAGE_RATE_OF_PAY_CALCULATED']
 original_data['PREVAILING_WAGE_CALCULATED'] = data['PREVAILING_WAGE_CALCULATED']
