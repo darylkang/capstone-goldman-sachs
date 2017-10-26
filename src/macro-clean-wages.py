@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import progressbar as pb
+import sys
 
 columns = [
     'PREVAILING_WAGE',
@@ -12,12 +13,13 @@ columns = [
 ]
 
 print('Loading Data...')
-data = pd.read_csv('all_clean_data.csv', usecols=columns, dtype=str)
+data = pd.read_csv('clean/all_clean_data.csv', usecols=columns, dtype=str)
 
 data['WAGE_RATE_OF_PAY'] = pd.to_numeric(data['WAGE_RATE_OF_PAY'], errors='coerce')
 data['PREVAILING_WAGE'] = pd.to_numeric(data['PREVAILING_WAGE'], errors='coerce')
 
 print('Parsing Wages:')
+sys.stdout.flush()
 bar = pb.ProgressBar()
 for i in bar(range(len(data))):
     x = data.at[i, 'WAGE_UNIT_OF_PAY']
