@@ -7,6 +7,8 @@
 - [Google Slides](https://docs.google.com/presentation/d/1_kPUSZ7F3yDvRDmCvhwF3w7rwSUfKnNlpVEaVLHfIJ8/edit#slide=id.p)
 
 <br>
+- [Midterm Report](https://docs.google.com/document/d/1rDwbvUDcIwbM9SGF2sM-C3N2jUO89r86CdNnjzXd8bw/edit)
+<br>
 
 **Team Members:**
 - [Pawel Buczak](https://github.com/pbuczak) — prb2123
