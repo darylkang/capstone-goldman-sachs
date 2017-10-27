@@ -68,5 +68,5 @@ original_data.drop(columns, axis=1, inplace=True)
 original_data['WAGE_RATE_OF_PAY_CALCULATED'] = data['WAGE_RATE_OF_PAY_CALCULATED']
 original_data['PREVAILING_WAGE_CALCULATED'] = data['PREVAILING_WAGE_CALCULATED']
 original_data = original_data.reindex_axis(sorted(original_data.columns), axis=1)
-original_data.to_csv('clean/all_clean_data.csv', index=False)
+original_data.to_csv('clean/all_clean_data_NEW.csv', index=False)
 print('Done')
