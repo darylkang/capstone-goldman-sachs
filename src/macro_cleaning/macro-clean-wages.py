@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import progressbar as pb
 import sys
+import os
 
 columns = [
     'PREVAILING_WAGE',
@@ -12,8 +13,11 @@ columns = [
     'WAGE_RATE_OF_PAY_CALCULATED'
 ]
 
+if not os.path.exists('../clean/macro'):
+    os.mkdir('../clean/macro')
+
 print('Loading Data...')
-data = pd.read_csv('clean/all_clean_data.csv', usecols=columns, dtype=str)
+data = pd.read_csv('../clean/all_clean_data.csv', usecols=columns, dtype=str)
 
 data['WAGE_RATE_OF_PAY'] = pd.to_numeric(data['WAGE_RATE_OF_PAY'], errors='coerce')
 data['PREVAILING_WAGE'] = pd.to_numeric(data['PREVAILING_WAGE'], errors='coerce')
@@ -63,10 +67,10 @@ for i in bar(range(len(data))):
         data.at[i, 'PREVAILING_WAGE_CALCULATED'] = data.at[i, 'PREVAILING_WAGE']
 
 print('Updating Master CSV...')
-original_data = pd.read_csv('clean/all_clean_data.csv', dtype=str)
+original_data = pd.read_csv('../clean/all_clean_data.csv', dtype=str)
 original_data.drop(columns, axis=1, inplace=True)
 original_data['WAGE_RATE_OF_PAY_CALCULATED'] = data['WAGE_RATE_OF_PAY_CALCULATED']
 original_data['PREVAILING_WAGE_CALCULATED'] = data['PREVAILING_WAGE_CALCULATED']
 original_data = original_data.reindex_axis(sorted(original_data.columns), axis=1)
-original_data.to_csv('clean/all_clean_data_NEW.csv', index=False)
+original_data.to_csv('../clean/macro/all_clean_data_NEW.csv', index=False)
 print('Done')
