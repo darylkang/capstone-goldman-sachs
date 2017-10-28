@@ -2,10 +2,14 @@ import pandas as pd
 import re
 import numpy as np
 import zipcode
+import os
 
 loc = ['CASE_STATUS', 'CASE_SUBMITTED', 'EMPLOYER_CITY', 'EMPLOYER_STATE', 'EMPLOYER_POSTAL_CODE', 'WORKSITE_CITY', 'WORKSITE_STATE', 'WORKSITE_POSTAL_CODE']
 
-data = pd.read_csv('clean/all_clean_data.csv',usecols = loc, dtype = str)
+data = pd.read_csv('../clean/all_clean_data.csv',usecols = loc, dtype = str)
+
+if not os.path.exists('../clean/macro'):
+    os.mkdir('../clean/macro')
 
 state_values = ['TX', 'MA', 'MI', 'CA', 'VA', 'NJ', 'NY', 'PA', 'FL', 'MN', 'IL',
        'MD', 'CT', 'WA', 'IA', 'CO', 'AZ', 'GA', 'OK', 'LA', 'WI', 'ND',
@@ -78,4 +82,4 @@ data['CASE_SUBMITTED'] = [
 
 ndata = data[['CASE_STATUS', 'CASE_SUBMITTED', 'EMPLOYER_STATE', 'WORKSITE_STATE']]
 
-ndata.to_csv('clean/location_state.csv', index = False, encoding ='utf-8')
+ndata.to_csv('../clean/macro/location_state.csv', index = False, encoding ='utf-8')

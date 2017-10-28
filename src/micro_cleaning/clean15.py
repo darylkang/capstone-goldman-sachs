@@ -75,4 +75,4 @@ if not os.path.exists('clean'):
         os.mkdir('clean')
         
 new_filename="2015.csv"
-cdata.to_csv("clean/{}".format(new_filename), encoding='utf-8', index = False)
+cdata.to_csv("../clean/{}".format(new_filename), encoding='utf-8', index = False)

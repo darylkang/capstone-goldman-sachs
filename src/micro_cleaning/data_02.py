@@ -157,7 +157,7 @@ data = data.reindex_axis(sorted(data.columns), axis=1)
 data['DOT_NAME'] = np.nan
 
 for i in range(len(num_data)-1):
-    data.iloc[num_data[i]:num_data[i+1]].to_csv('clean/200{}_efile.csv'.format(i+2), index=False, encoding='utf-8')
+    data.iloc[num_data[i]:num_data[i+1]].to_csv('../clean/200{}_efile.csv'.format(i+2), index=False, encoding='utf-8')
 
 print("done")
 toc = time.time()

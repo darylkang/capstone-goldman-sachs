@@ -1,9 +1,14 @@
 import numpy as np
 import pandas as pd
 from datetime import date
+import os
 
 print("Reading clean data")
-data = pd.read_csv('clean/all_clean_data.csv', encoding='utf-8', dtype=str)
+data = pd.read_csv('../clean/all_clean_data.csv', encoding='utf-8', dtype=str)
+
+
+if not os.path.exists('../clean/macro'):
+    os.mkdir('../clean/macro')
 
 def update_visa_class(x):
     if pd.to_datetime(x).year<2007:
@@ -39,4 +44,4 @@ certified_sorted_deduped_data = certified_sorted_data.drop_duplicates(["CASE_NUM
 
 print("Writing deduped, filtered, clean data!")
 #Write to file
-certified_sorted_deduped_data.to_csv("clean/claned_data_fixed_visa_dates_status.csv",index=False, encoding='utf-8')
+certified_sorted_deduped_data.to_csv("../clean/macro/cleaned_data_fixed_visa_dates_status.csv",index=False, encoding='utf-8')

@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import os
 import time
+import sys
+sys.path.insert(0, 'clean')
 
 from datetime import datetime
 from zipfile import ZipFile
@@ -133,14 +135,14 @@ data['DOT_NAME'] = np.nan
 
 data = data.reindex_axis(sorted(data.columns), axis=1)
 
-if not os.path.exists('clean'):
-    os.mkdir('clean')
+if not os.path.exists('../clean'):
+    os.mkdir('../clean')
 # data.to_csv('data_01.csv', index=False)
-data.iloc[0:288392].to_csv('clean/2001_fax.csv', index=False)
-data.iloc[288392:435139].to_csv('clean/2002_fax.csv', index=False)
-data.iloc[435139:482513].to_csv('clean/2003_fax.csv', index=False)
-data.iloc[482513:514010].to_csv('clean/2004_fax.csv', index=False)
-data.iloc[514010:523945].to_csv('clean/2005_fax.csv', index=False)
+data.iloc[0:288392].to_csv('../clean/2001_fax.csv', index=False)
+data.iloc[288392:435139].to_csv('../clean/2002_fax.csv', index=False)
+data.iloc[435139:482513].to_csv('../clean/2003_fax.csv', index=False)
+data.iloc[482513:514010].to_csv('../clean/2004_fax.csv', index=False)
+data.iloc[514010:523945].to_csv('../clean/2005_fax.csv', index=False)
 os.remove('data_01.csv')
 
 print("K, it's done...")
