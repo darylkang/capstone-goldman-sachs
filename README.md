@@ -25,7 +25,7 @@
 
 - **Oct 30:** Literature Review and Exploratory Data Analysis Report Due
 
-- **Oct 26:** **UPDATED**: To get the data, run the following commands:
+- **Oct 26:** **UPDATED**: To get the data, run the following commands in "src/micro_cleaning" folder:
   1. `download-01.py` → returns `raw_data` folder (pre-2008 data)
   2. `download-02.py` → returns `data` folder (post-2008 data)
   3. `data-01.py`
