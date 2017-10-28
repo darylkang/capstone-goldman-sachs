@@ -5,9 +5,10 @@
 - [Google Docs](https://docs.google.com/document/d/1vi0p2yDv-QhWzHUths2dgmEgMqqeF6XdPsNL82NH4Yc/edit)
 - [Google Sheets](https://docs.google.com/a/columbia.edu/spreadsheets/d/13rsErU8LkeA5jCgeoOnI0pIIGSqG96P4hyIG9AS5nOo/edit?usp=sharing)
 
-### ***Midterm Review***
+### ***Midterm Report***
 - [Google Docs](https://docs.google.com/document/d/1rDwbvUDcIwbM9SGF2sM-C3N2jUO89r86CdNnjzXd8bw/edit)
 - [Google Slides](https://docs.google.com/presentation/d/1_kPUSZ7F3yDvRDmCvhwF3w7rwSUfKnNlpVEaVLHfIJ8/edit#slide=id.p)
+- [Literature Review](https://www.brookings.edu/wp-content/uploads/2016/06/18-h1b-visas-labor-immigration.pdf)
 
 <br>
 
@@ -21,6 +22,8 @@
 <hr>
 
 ### *Announcements*
+
+- **Nov 16:** Midterm Presentation — 2:40 PM at 517 Hamilton
 
 - **Oct 30:** Midterm Report Due
 
