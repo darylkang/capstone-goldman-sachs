@@ -11,6 +11,7 @@ warnings.filterwarnings('ignore')
 
 tic = time.time()
 print("write data to csv....")
+
 with open('data_02.csv', 'w+') as f:
     HEADER = ','.join([
         'CASE_SUBMITTED', # Submitted_Data
@@ -51,7 +52,7 @@ with open('data_02.csv', 'w+') as f:
     files = glob.glob(file_root + '/*.zip')
     efiles = [file for file in files if 'efile' in file]
     efiles = efiles[:-2]
-    num_data = [0]
+    num_data = []
     for efile in efiles:
         with ZipFile(efile) as ZIP:
             file_names = ZIP.namelist()
@@ -88,7 +89,7 @@ with open('data_02.csv', 'w+') as f:
         num_data.append(data_len)
 
 data = pd.read_csv('data_02.csv', dtype=str)
-print("done, total_data = {}".format(len(data)))
+
 print('clean data...')
 x = [
     'CASE_STATUS',
@@ -140,6 +141,7 @@ data['PW_UNIT_OF_PAY'] = [
 '''
 
 print('clean case submitted...')
+data['CASE_SUBMITTED'] = data['CASE_SUBMITTED'].str.replace(' 0:00:00', '')
 data['CASE_SUBMITTED'] = pd.to_datetime(data['CASE_SUBMITTED'], errors='coerce').dt.strftime('%Y-%m-%d')
 data['CASE_SUBMITTED'][data['CASE_SUBMITTED'] == 'NaT'] = np.nan
 
@@ -155,9 +157,13 @@ data = data.reindex_axis(sorted(data.columns), axis=1)
 #data.drop('WITHDRAWN', axis=1, inplace=True)
 
 data['DOT_NAME'] = np.nan
-
-for i in range(len(num_data)-1):
-    data.iloc[num_data[i]:num_data[i+1]].to_csv('clean/200{}_efile.csv'.format(i+2), index=False)
+idx_from = 0
+idx_to = 0
+for i in range(len(num_data)):
+    idx_to += num_data[i]
+    print('write data from {} to {}...'.format(idx_from, idx_to))
+    data.iloc[idx_from:idx_to].to_csv('clean/200{}_efile.csv'.format(i+2), index=False)
+    idx_from = idx_to
 
 print("done")
 toc = time.time()
