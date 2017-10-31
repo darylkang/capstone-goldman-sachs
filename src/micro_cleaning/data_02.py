@@ -11,8 +11,7 @@ warnings.filterwarnings('ignore')
 
 tic = time.time()
 print("write data to csv....")
-
-with open('data_02.csv', 'w+') as f:
+with open('data_02.csv', 'w+', encoding = 'utf-8') as f:
     HEADER = ','.join([
         'CASE_SUBMITTED', # Submitted_Data
         'CASE_NUMBER', # Case_No
@@ -48,7 +47,7 @@ with open('data_02.csv', 'w+') as f:
 
     f.write(HEADER + '\n')
     # Write txt files to csv
-    file_root = 'raw_data'
+    file_root = '../raw_data'
     files = glob.glob(file_root + '/*.zip')
     efiles = [file for file in files if 'efile' in file]
     efiles = efiles[:-2]
@@ -83,7 +82,7 @@ with open('data_02.csv', 'w+') as f:
                             data['WITHDRAWN'],
                             pd.DataFrame(columns=list(range(8)))
                         ], axis=1)
-                        data.to_csv(f, header=False, index=False)
+                        data.to_csv(f, header=False, index=False, encoding='utf-8')
                         data_len += len(data)
         print('total data for {}: {}'.format(efile, data_len))
         num_data.append(data_len)
@@ -162,9 +161,8 @@ idx_to = 0
 for i in range(len(num_data)):
     idx_to += num_data[i]
     print('write data from {} to {}...'.format(idx_from, idx_to))
-    data.iloc[idx_from:idx_to].to_csv('clean/200{}_efile.csv'.format(i+2), index=False)
+    data.iloc[idx_from:idx_to].to_csv('../clean/200{}_efile.csv'.format(i+2), index=False)
     idx_from = idx_to
-
 print("done")
 toc = time.time()
 print("process time:", round((toc - tic) / 60, 2), 'minutes')
