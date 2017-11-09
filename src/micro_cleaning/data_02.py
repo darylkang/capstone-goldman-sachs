@@ -161,7 +161,7 @@ idx_to = 0
 for i in range(len(num_data)):
     idx_to += num_data[i]
     print('write data from {} to {}...'.format(idx_from, idx_to))
-    data.iloc[idx_from:idx_to].to_csv('../clean/200{}_efile.csv'.format(i+2), index=False)
+    data.iloc[idx_from:idx_to].to_csv('../clean/200{}_efile.csv'.format(i+2), index=False, encoding='utf-8')
     idx_from = idx_to
 print("done")
 toc = time.time()
