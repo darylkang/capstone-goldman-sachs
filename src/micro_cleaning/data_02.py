@@ -47,7 +47,7 @@ with open('data_02.csv', 'w+', encoding = 'utf-8') as f:
 
     f.write(HEADER + '\n')
     # Write txt files to csv
-    file_root = '../raw_data'
+    file_root = 'raw_data/'
     files = glob.glob(file_root + '/*.zip')
     efiles = [file for file in files if 'efile' in file]
     efiles = efiles[:-2]
