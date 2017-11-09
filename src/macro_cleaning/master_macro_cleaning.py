@@ -14,7 +14,7 @@ state_values = ['TX', 'MA', 'MI', 'CA', 'VA', 'NJ', 'NY', 'PA', 'FL', 'MN', 'IL'
        'MD', 'CT', 'WA', 'IA', 'CO', 'AZ', 'GA', 'OK', 'LA', 'WI', 'ND',
        'UT', 'IN', 'OH', 'KY', 'NC', 'NH', 'MO', 'TN', 'ID', 'VT', 'DC',
        'SD', 'AL', 'OR', 'AR', 'NM', 'SC', 'NE', 'DE', 'WY', 'HI', 'KS',
-       'WV', 'ME', 'RI', 'NV', 'MS', 'AK','MT','PR','GU','VI','MP']
+       'WV', 'ME', 'RI', 'NV', 'MS', 'AK','MT','PR','GU','VI']
 columns = [
     'PREVAILING_WAGE',
     'PW_UNIT_OF_PAY',
