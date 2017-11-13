@@ -74,32 +74,32 @@ def createIndustryMapping(x):
 	if pd.isnull(x):
 		return np.nan
 	naic = str(x)
-	if(naic[0:4] == '6113'):
-	    industry = 'Colleges & Universities'
-	elif(naic[0:2] in ['61', '92']):
-	    industry = 'Other Educational, Public Affairs'
-	elif(naic[0:2] in ['42', '44', '45', '48', '49']):
-	    industry = 'Trade, Transportation, Warehousing'
-	elif(naic[0:2] in ['62']):
-	    industry = 'Healthcare'
-	elif(naic[0:3] in ['334', '335']):
-	    industry = 'Manufacturing - Other'
-	elif(naic[0:2] in ['31', '32', '33']):
-	    industry = 'Manufacturing - Computers & Electronics'
-	elif(naic[0:4] in ['5112', '5415']):
-	    industry = 'Software Publishers, Computer Services'
-	elif(naic[0:4] in ['5413', '5417']):
-	    industry = 'Engineering & Scientific R&D Services'
-	elif(naic[0:4] == '5416' or naic[0:2] == '55'):
-	    industry = 'Management, Consulting & Technical Services'
-	elif(naic[0:4] in ['5411', '5412']):
-	    industry = 'Legal & Accounting Services'
-	elif(naic[0:4] in ['5414', '5418'] or naic[0:2] == '51'):
-	    industry = 'Media, Advertising, Telecommunications'
-	elif(naic[0:2] == '54' or naic[0:3] == '561'):
-	    industry = 'Other Professional & Administrative Services'
-	elif(naic[0:2] in ['52', '53']):
-	    industry = 'Finance, Insurance, Real Estate'
+    if(naic[0:4] == '6113'):
+        industry = 'Colleges & Universities'
+    elif(naic[0:2] in ['61', '92']):
+        industry = 'Other Educational, Public Affairs'
+    elif(naic[0:4] in ['5112', '5415']):
+        industry = 'Software Publishers, Computer Services'
+    elif(naic[0:4] in ['5413', '5417']):
+        industry = 'Engineering & Scientific R&D Services'
+    elif(naic[0:4] == '5416' or naic[0:2] == '55'):
+        industry = 'Management, Consulting & Technical Services'
+    elif(naic[0:4] in ['5411', '5412']):
+        industry = 'Legal & Accounting Services'
+    elif(naic[0:4] in ['5414', '5418'] or naic[0:2] == '51'):
+        industry = 'Media, Advertising, Telecommunications'
+    elif(naic[0:2] == '54' or naic[0:3] == '561'):
+        industry = 'Other Professional & Administrative Services'
+    elif(naic[0:3] == '335'):
+        industry = 'Manufacturing - Computers & Electronics'
+    elif(naic[0:2] in ['31', '32', '33']):
+        industry = 'Manufacturing - Other'
+    elif(naic[0:2] in ['52', '53']):
+        industry = 'Finance, Insurance, Real Estate'
+    elif(naic[0:2] in ['42', '44', '45', '48', '49']):
+        industry = 'Trade, Transportation, Warehousing'
+    elif(naic[0:2] in ['62']):
+        industry = 'Healthcare'
 	else:
 	    #Commodities, Energy, Utilities, Construction, Arts & Entertainment, Accomodation, Other Services, & Unknown
 	    industry = 'Other'
