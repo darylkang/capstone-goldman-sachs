@@ -22,6 +22,7 @@
 <hr>
 
 ### *Announcements*
+- **Nov 16:** Group Meeting with Mr. Dennis — 4:15 PM at Mudd 429
 
 - **Nov 16:** Midterm Presentation — 2:40 PM at 517 Hamilton
 
