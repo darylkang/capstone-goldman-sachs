@@ -9,6 +9,8 @@ reduced_columns['CASE_SUBMITTED']=pd.to_datetime(reduced_columns['CASE_SUBMITTED
 
 reduced_years = reduced_columns[(reduced_columns.CASE_SUBMITTED >= '2009-07-01')]
 
+reduced_years = reduced_years.dropna()
+
 reduced_years.to_csv("../clean/macro/post2009_naics.csv",index=False, encoding='utf-8')
 
 print(reduced_years.shape)
