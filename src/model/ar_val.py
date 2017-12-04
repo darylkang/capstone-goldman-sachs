@@ -79,15 +79,32 @@ def autoplot_val(data, title='Forecast of Demand for H-1B Visas', ylim=(-0.1e5, 
     ax.legend(loc='best');
     
     # Metrics
+    y_true = y_true[1:]
+    y_pred = y_pred[1:]
+    
+    # Error
     E = y_pred - y_true
     
+    # Root-Mean-Square Error
     SE = np.square(E)
     MSE = np.mean(SE)
     RMSE = np.sqrt(MSE)
     
+    # Mean Absolute Percentage Error
     AE = np.abs(E)
     APE = AE / y_true
     MAPE = np.mean(APE) * 100
     
-    print('RMSE: {:>8.3f}'.format(RMSE))
-    print('MAPE: {:>8.3f}'.format(MAPE))
+    # Standard Absolute Percentage Error
+    SAPE = np.std(APE) * 100
+    
+    # 75% Confidence Interval
+    CI_75 = (MAPE - 1.15 * SAPE, MAPE + 1.15 * SAPE)
+    
+    print('RMSE: {:>5.0f}  — Root-Mean-Square Error'.format(RMSE))
+    print('MAPE: {:>5.1f}% — Mean Absolute Percentage Error'.format(MAPE))
+    print('SE:   {:>5.1f}% — Standard (Absolute Percentage) Error'.format(SAPE))
+    print()
+    print('75% Confidence Interval')
+    print('Upper Limit: {:>5.1f}%'.format(min(CI_75[1], 100)))
+    print('Lower Limit: {:>5.1f}%'.format(max(CI_75[0], 0.0)))
